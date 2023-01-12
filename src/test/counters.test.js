@@ -1,4 +1,4 @@
-const { countItems } = require('../modules/counters.js');
+import { countItems, countComments } from '../modules/counters.js';
 
 describe('Counting number of movies on the page', () => {
   test('test number of items', () => {
@@ -33,5 +33,34 @@ describe('Counting number of movies on the page', () => {
     ];
     const result = countItems(cardsContainer);
     expect(result).toEqual(3);
+  });
+});
+
+describe('Counting number of comments', () => {
+  test('Return number of comments of specific identifier', () => {
+    const commentList = [
+      {
+        username: 'Fabrice',
+        creation_date: '2022-01-11',
+        comment: 'Fantastic',
+      },
+      {
+        comment: 'Nice Movie',
+        username: 'Manzi',
+        creation_date: '2022-01-11',
+      },
+      {
+        creation_date: '2022-01-11',
+        comment: 'Next release',
+        username: 'David',
+      },
+      {
+        creation_date: '2022-01-11',
+        username: 'Bobo',
+        comment: 'Nice video quality',
+      },
+    ];
+    const result = countComments(commentList);
+    expect(result).toBe(4);
   });
 });
