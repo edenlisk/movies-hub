@@ -1,10 +1,11 @@
-.navbar{
-    background-color: rgb(224, 224, 224);
-  }
+.navbar {
+  background-color: rgb(224, 224, 224);
+}
 
-  .nav-element:hover{
-    border-radius: 9px;
-  }
-  .nav-element:focus{
-    color: rgba(179, 87, 1, 0.534);
-  }
+.nav-element:hover {
+  border-radius: 9px;
+}
+
+.nav-element:focus {
+  color: rgba(179, 87, 1, 0.534);
+}
