@@ -1,9 +1,7 @@
-const row = document.querySelector('.row');
+import { openmodal } from './render-popup.js';
+import movieName from './movieName.js';
 
-const movieName = (id) => {
-  const movies = ['movie1', 'movie2', 'movie3', 'movie4', 'movie5', 'movie6', 'movie7', 'movie8', 'movie9'];
-  return movies[id];
-};
+const row = document.querySelector('.row');
 
 export const RenderCards = (movie, identifier) => {
   const grid = document.createElement('div');
@@ -67,6 +65,7 @@ export const RenderCards = (movie, identifier) => {
 
   grid.appendChild(body);
   row.appendChild(grid);
+  openmodal(identifier);
 };
 
 export const retrieveMovie = async () => {
