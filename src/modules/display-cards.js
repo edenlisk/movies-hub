@@ -1,5 +1,20 @@
 import { openmodal } from './render-popup.js';
 import movieName from './movieName.js';
+import { getLikes, postLikes } from './liking.js';
+
+const AddLike = (identifier) => {
+  const likeBtns = document.querySelectorAll('.bi-heart');
+  likeBtns.forEach((lk, index) => {
+    lk.addEventListener('click', () => {
+      if (identifier === index) {
+        lk.classList.add('d-none');
+        lk.nextElementSibling.classList.remove('d-none');
+        document.querySelector(`.likes${movieName(identifier)}`).innerText = Number(document.querySelector(`.likes${movieName(identifier)}`).innerText) + 1;
+        postLikes('episode1');
+      }
+    });
+  });
+};
 
 const row = document.querySelector('.row');
 
@@ -42,6 +57,7 @@ export const RenderCards = (movie, identifier) => {
   const likes = document.createElement('p');
   likes.classList.add('container', 'text-end', 'mb-0', 'p-1', `likes${movieName(identifier)}`);
   likes.innerText = 0; // Card likes
+  getLikes(likes, 'episode1');
 
   const buttonsContainer = document.createElement('div');
   buttonsContainer.classList.add(
@@ -66,6 +82,7 @@ export const RenderCards = (movie, identifier) => {
   grid.appendChild(body);
   row.appendChild(grid);
   openmodal(identifier);
+  AddLike(identifier);
 };
 
 export const retrieveMovie = async () => {
