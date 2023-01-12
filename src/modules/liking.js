@@ -38,7 +38,6 @@ export const postComment = async (identifier, name, message) => {
         comment: message,
       }),
     });
-  // const data = await response.text();
 };
 
 export const getComment = async (container, childCount, identifier) => {

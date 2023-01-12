@@ -16,11 +16,17 @@ const AddLike = (identifier) => {
   });
 };
 
+export const countCards = () => {
+  const cards = document.querySelectorAll('.movie-card');
+  const navHome = document.querySelector('.nav-home');
+  navHome.innerHTML = `Home(${cards.length})`;
+};
+
 const row = document.querySelector('.row');
 
 export const RenderCards = (movie, identifier) => {
   const grid = document.createElement('div');
-  grid.classList.add('col', 'py-2', 'grid', 'col-md-4');
+  grid.classList.add('col', 'py-2', 'grid', 'col-md-4', 'movie-card');
 
   const body = document.createElement('div');
   body.classList.add('card', 'border-0', 'h-100', 'body');
@@ -93,4 +99,5 @@ export const retrieveMovie = async () => {
       RenderCards(dt, index);
     }
   });
+  countCards();
 };
