@@ -10,7 +10,7 @@ const AddLike = (identifier) => {
         lk.classList.add('d-none');
         lk.nextElementSibling.classList.remove('d-none');
         document.querySelector(`.likes${movieName(identifier)}`).innerText = Number(document.querySelector(`.likes${movieName(identifier)}`).innerText) + 1;
-        postLikes('episode1');
+        postLikes(identifier);
       }
     });
   });
@@ -57,7 +57,7 @@ export const RenderCards = (movie, identifier) => {
   const likes = document.createElement('p');
   likes.classList.add('container', 'text-end', 'mb-0', 'p-1', `likes${movieName(identifier)}`);
   likes.innerText = 0; // Card likes
-  getLikes(likes, 'episode1');
+  getLikes(likes, identifier);
 
   const buttonsContainer = document.createElement('div');
   buttonsContainer.classList.add(
