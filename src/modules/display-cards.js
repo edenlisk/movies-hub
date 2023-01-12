@@ -7,7 +7,7 @@ const movieName = (id) => {
 
 export const RenderCards = (movie, identifier) => {
   const grid = document.createElement('div');
-  grid.classList.add('col', 'py-2', 'grid', 'col-4');
+  grid.classList.add('col', 'py-2', 'grid', 'col-md-4');
 
   const body = document.createElement('div');
   body.classList.add('card', 'border-0', 'h-100', 'body');
