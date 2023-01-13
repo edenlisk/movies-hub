@@ -1,6 +1,18 @@
-// import { movieName } from './display-cards.js';
 import movieName from './movieName.js';
 import { getComment, postComment } from './liking.js';
+
+const addComment = async (identifier) => {
+  const username = document.querySelector('.name');
+  const commentArea = document.querySelector('.commentarea');
+  document.querySelector('form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (username.value && commentArea.value) {
+      postComment(movieName(identifier), username.value, commentArea.value);
+    }
+    username.value = '';
+    commentArea.value = '';
+  });
+};
 
 const modalContent = document.querySelector('.modal-content');
 const updatePopup = async (uniqueId) => {
@@ -14,6 +26,10 @@ const updatePopup = async (uniqueId) => {
       document.querySelector('.movie-status').innerText = `Status: ${dt.status}`;
       document.querySelector('.movie-type').innerText = `Type: ${dt.type}`;
       document.querySelector('.movie-language').innerText = `Language: ${dt.language}`;
+      const commentsContainer = document.querySelector('.comments-container');
+      const commentsNumber = document.querySelector('.commentsheader');
+      getComment(commentsContainer, commentsNumber, movieName(index));
+      addComment(index);
     }
   });
 };
@@ -40,24 +56,7 @@ const closeModal = () => {
   });
 };
 
-const addComment = () => {
-  const username = document.querySelector('.name');
-  const commentArea = document.querySelector('.commentarea');
-  const commentsNumber = document.querySelector('.commentsheader');
-  document.querySelector('form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (username.value && commentArea.value) {
-      postComment('episode1', username.value, commentArea.value);
-      getComment(document.querySelector('form')
-        .previousSibling.previousSibling,
-      commentsNumber, 'episode1');
-    }
-    username.value = '';
-    commentArea.value = '';
-  });
-};
-
-export const RenderpopUp = (identifier) => {
+export const RenderpopUp = () => {
   const modalBody = document.createElement('div');
   modalBody.classList.add(
     'modal-body',
@@ -135,7 +134,7 @@ export const RenderpopUp = (identifier) => {
     </div>`;
 
   const CommentsNbr = document.createElement('h4');
-  CommentsNbr.classList.add('text-center', 'commentsheader', `commentsheader${movieName(identifier)}`);
+  CommentsNbr.classList.add('text-center', 'commentsheader');
   CommentsNbr.innerText = 'Comments (0)';
 
   const CommentsContainer = document.createElement('div');
@@ -150,7 +149,6 @@ export const RenderpopUp = (identifier) => {
 
   const CommentDescription = document.createElement('p');
   CommentDescription.classList.add('m-0', 'p-1');
-  CommentDescription.innerHTML = '03/2/2021-Alex:wow thanks!';
 
   const CommentsAdd = document.createElement('h4');
   CommentsAdd.classList.add('text-center');
@@ -170,7 +168,7 @@ export const RenderpopUp = (identifier) => {
   );
   form.innerHTML = `<input
     type="text"
-    class="name name${movieName(identifier)} border border-2 border-dark rounded-0 text-center"
+    class="name border border-2 border-dark rounded-0 text-center"
     required
     placeholder="Your name"
     style="max-width: 20rem"
@@ -178,7 +176,7 @@ export const RenderpopUp = (identifier) => {
     <textarea
     name="comments"
     id=""
-    class="commentarea commentarea${movieName(identifier)} border border-2 border-dark rounded-0 text-center"
+    class="commentarea border border-2 border-dark rounded-0 text-center"
     cols="30"
     rows="10"
     placeholder="Your insights"
@@ -192,7 +190,6 @@ export const RenderpopUp = (identifier) => {
     >
     comments
     </button>`;
-  // form.append()
   CommentsContainer.appendChild(CommentDescription);
   modalBody.append(
     imgAndcls,
@@ -205,6 +202,4 @@ export const RenderpopUp = (identifier) => {
   );
   modalContent.appendChild(modalBody);
   closeModal();
-  addComment(identifier);
-  getComment(CommentsContainer, CommentsNbr, 'episode1');
 };
