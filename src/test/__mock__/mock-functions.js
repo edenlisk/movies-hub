@@ -1,39 +1,37 @@
 export const countCards = (cardsContainer) => {
-    const navHome = document.createElement('div');
-    navHome.innerHTML = `Home(${cardsContainer.length})`;
-    return cardsContainer.childElementCount;
+  const navHome = document.createElement('div');
+  navHome.innerHTML = `Home(${cardsContainer.length})`;
+  return cardsContainer.childElementCount;
 };
 
 export const countComments = (commentsContainer) => {
-    const commentsNumber = document.createElement('p');
-    commentsNumber.innerHTML = `Comments(${commentsContainer.childElementCount})`;
-    return commentsContainer.childElementCount;
+  const commentsNumber = document.createElement('p');
+  commentsNumber.innerHTML = `Comments(${commentsContainer.childElementCount})`;
+  return commentsContainer.childElementCount;
 };
 
-
-
 export const RenderCards = (row, identifier) => {
-    const grid = document.createElement('div');
-    grid.classList.add('col', 'py-2', 'grid', 'col-md-4', 'movie-card', `${identifier}`);
+  const grid = document.createElement('div');
+  grid.classList.add('col', 'py-2', 'grid', 'col-md-4', 'movie-card', `${identifier}`);
 
-    const body = document.createElement('div');
-    body.classList.add('card', 'border-0', 'h-100', 'body');
-    body.style = 'width: 100%';
+  const body = document.createElement('div');
+  body.classList.add('card', 'border-0', 'h-100', 'body');
+  body.style = 'width: 100%';
 
-    const cardImg = document.createElement('img');
-    cardImg.classList.add('p-2', 'card-img-top', 'img-fluid');
-    cardImg.src = '#'; // medium image from tvmaze API
+  const cardImg = document.createElement('img');
+  cardImg.classList.add('p-2', 'card-img-top', 'img-fluid');
+  cardImg.src = '#'; // medium image from tvmaze API
 
-    const likeAndSvg = document.createElement('div');
-    likeAndSvg.classList.add('card-body', 'd-flex', 'p-2', 'likeAndSvg');
+  const likeAndSvg = document.createElement('div');
+  likeAndSvg.classList.add('card-body', 'd-flex', 'p-2', 'likeAndSvg');
 
-    const cardTitle = document.createElement('h5');
-    cardTitle.classList.add('card-title', 'container', 'text-start');
-    cardTitle.innerHTML = ''; // Movie title
+  const cardTitle = document.createElement('h5');
+  cardTitle.classList.add('card-title', 'container', 'text-start');
+  cardTitle.innerHTML = ''; // Movie title
 
-    const svgOnly = document.createElement('div');
-    svgOnly.classList.add('container', 'text-end', 'svgOnly');
-    svgOnly.innerHTML = `<svg
+  const svgOnly = document.createElement('div');
+  svgOnly.classList.add('container', 'text-end', 'svgOnly');
+  svgOnly.innerHTML = `<svg
     xmlns="http://www.w3.org/2000/svg"
     width="16"
     height="16"
@@ -48,29 +46,29 @@ export const RenderCards = (row, identifier) => {
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill d-none " viewBox="0 0 16 16">
       <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
     </svg>`;
-    const likes = document.createElement('p');
-    likes.classList.add('container', 'text-end', 'mb-0', 'p-1', `likes`);
-    likes.innerText = 0; // Card likes
+  const likes = document.createElement('p');
+  likes.classList.add('container', 'text-end', 'mb-0', 'p-1', 'likes');
+  likes.innerText = 0; // Card likes
 
-    const buttonsContainer = document.createElement('div');
-    buttonsContainer.classList.add(
-        'container',
-        'd-flex',
-        'flex-column',
-        'gap-2',
-        'px-3',
-        'pb-4',
-        'buttonsContainer',
-    );
-    buttonsContainer.innerHTML = `<button id="" class="btn comments popupOpener border-1 border-dark rounded-0" type="button" ">
+  const buttonsContainer = document.createElement('div');
+  buttonsContainer.classList.add(
+    'container',
+    'd-flex',
+    'flex-column',
+    'gap-2',
+    'px-3',
+    'pb-4',
+    'buttonsContainer',
+  );
+  buttonsContainer.innerHTML = `<button id="" class="btn comments popupOpener border-1 border-dark rounded-0" type="button" ">
     Comments
   </button>
   <button class="btn border-1 border-dark rounded-0" type="button">
     Reservations
   </button>`;
 
-    likeAndSvg.append(cardTitle, svgOnly);
-    body.append(cardImg, likeAndSvg, likes, buttonsContainer);
-    grid.appendChild(body);
-    row.appendChild(grid);
+  likeAndSvg.append(cardTitle, svgOnly);
+  body.append(cardImg, likeAndSvg, likes, buttonsContainer);
+  grid.appendChild(body);
+  row.appendChild(grid);
 };

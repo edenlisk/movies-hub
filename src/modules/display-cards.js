@@ -1,7 +1,7 @@
 import { openmodal } from './render-popup.js';
 import movieName from './movieName.js';
 import { getLikes, postLikes } from './liking.js';
-import {countCards} from "./counters";
+import { countCards } from './counters.js';
 
 const AddLike = (identifier) => {
   const likeBtns = document.querySelectorAll('.bi-heart');
@@ -16,7 +16,6 @@ const AddLike = (identifier) => {
     });
   });
 };
-
 
 const row = document.querySelector('.row');
 
