@@ -1,6 +1,7 @@
 import { openmodal } from './render-popup.js';
 import movieName from './movieName.js';
 import { getLikes, postLikes } from './liking.js';
+import {countCards} from "./counters";
 
 const AddLike = (identifier) => {
   const likeBtns = document.querySelectorAll('.bi-heart');
@@ -16,11 +17,6 @@ const AddLike = (identifier) => {
   });
 };
 
-export const countCards = () => {
-  const cards = document.querySelectorAll('.movie-card');
-  const navHome = document.querySelector('.nav-home');
-  navHome.innerHTML = `Home(${cards.length})`;
-};
 
 const row = document.querySelector('.row');
 
@@ -99,7 +95,7 @@ export const retrieveMovie = async () => {
       RenderCards(dt, index);
     }
   });
-  countCards();
+  countCards(document.querySelectorAll('.movie-card'));
 };
 
 export const navigation = () => {

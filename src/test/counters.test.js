@@ -1,37 +1,45 @@
-const { countItems } = require('../modules/counters.js');
+/**
+ * @jest-environment jsdom
+ */
+import { countCards, RenderCards, countComments } from "./__mock__/mock-functions";
 
 describe('Counting number of movies on the page', () => {
-  test('test number of items', () => {
-    const cardsContainer = [
-      {
-        image: {
-          medium: 'https://static.tvmaze.com/uploads/images/medium_portrait/81/202627.jpg',
-          original: 'https://static.tvmaze.com/uploads/images/original_untouched/81/202627.jpg',
-        },
-        title: 'Under the Dome',
-        language: 'English',
-        genres: ['Drama', 'Science-Fiction', 'Thriller'],
-      },
-      {
-        image: {
-          medium: 'https://static.tvmaze.com/uploads/images/medium_portrait/0/73.jpg',
-          original: 'https://static.tvmaze.com/uploads/images/original_untouched/0/73.jpg',
-        },
-        title: 'Glee',
-        language: 'English',
-        genres: ['Drama', 'Music', 'Romance'],
-      },
-      {
-        image: {
-          medium: 'https://static.tvmaze.com/uploads/images/medium_portrait/82/206879.jpg',
-          original: 'https://static.tvmaze.com/uploads/images/original_untouched/82/206879.jpg',
-        },
-        title: 'Revenge',
-        language: 'English',
-        genres: ['Drama', 'Thriller', 'Mystery'],
-      },
-    ];
-    const result = countItems(cardsContainer);
+  test('test number of items should return 4', async () => {
+    const row = document.createElement('div');
+    await RenderCards(row, "movie1");
+    await RenderCards(row, "movie2");
+    await RenderCards(row, "movie3");
+    await RenderCards(row, "movie4");
+    const result = await countCards(row);
+    expect(result).toEqual(4);
+  });
+
+  test("test number of items should return 0", async () => {
+    const row = document.createElement('div');
+    const result = await countCards(row);
+    expect(result).toEqual(0);
+  });
+
+});
+
+describe("Testing number of comments", () => {
+  test("Counting number of comments should return 3", async () => {
+    const commentsContainer  = document.createElement('div');
+    commentsContainer.innerHTML =
+        `
+        <p>2023-01-20-Fabrice: Fantastic</p>
+        <p>2023-01-20-Manzi: Very interesting</p>
+        <p>2023-01-20-Joel: Best Video quality</p>
+        `
+    ;
+    const result = countComments(commentsContainer);
     expect(result).toEqual(3);
+  })
+
+  test("Counting number of comments should return 0", async () => {
+    const commentsContainer = document.createElement('div');
+    commentsContainer.innerHTML = '';
+    const result = countComments(commentsContainer);
+    expect(result).toEqual(0);
   });
 });
