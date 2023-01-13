@@ -10,7 +10,7 @@ const AddLike = (identifier) => {
         lk.classList.add('d-none');
         lk.nextElementSibling.classList.remove('d-none');
         document.querySelector(`.likes${movieName(identifier)}`).innerText = Number(document.querySelector(`.likes${movieName(identifier)}`).innerText) + 1;
-        postLikes(identifier);
+        postLikes(movieName(identifier));
       }
     });
   });
@@ -63,7 +63,7 @@ export const RenderCards = (movie, identifier) => {
   const likes = document.createElement('p');
   likes.classList.add('container', 'text-end', 'mb-0', 'p-1', `likes${movieName(identifier)}`);
   likes.innerText = 0; // Card likes
-  getLikes(likes, identifier);
+  getLikes(likes, movieName(identifier));
 
   const buttonsContainer = document.createElement('div');
   buttonsContainer.classList.add(
@@ -100,4 +100,16 @@ export const retrieveMovie = async () => {
     }
   });
   countCards();
+};
+
+export const navigation = () => {
+  document.querySelector('.nav-home').addEventListener('click', () => {
+    document.querySelector('.home-section').classList.remove('d-none');
+    document.querySelector('.about-section').classList.add('d-none');
+  });
+
+  document.querySelector('.nav-about').addEventListener('click', () => {
+    document.querySelector('.about-section').classList.remove('d-none');
+    document.querySelector('.home-section').classList.add('d-none');
+  });
 };

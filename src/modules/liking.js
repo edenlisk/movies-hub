@@ -1,7 +1,7 @@
 import { countComments } from './counters.js';
 
 export const getLikes = async (element, identifier) => {
-  const response = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/StwCMkXg71NHo1x5MJEP/likes/');
+  const response = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/K0EaQXGcHFVimQravHDE/likes/');
   const data = await response.json();
   if (data.length) {
     for (let i = 0; i < data.length; i += 1) {
@@ -13,7 +13,7 @@ export const getLikes = async (element, identifier) => {
 };
 
 export const postLikes = async (identifier) => {
-  await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/StwCMkXg71NHo1x5MJEP/likes/',
+  await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/K0EaQXGcHFVimQravHDE/likes/',
     {
       method: 'POST',
       headers: {
@@ -26,7 +26,7 @@ export const postLikes = async (identifier) => {
 };
 
 export const postComment = async (identifier, name, message) => {
-  await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/StwCMkXg71NHo1x5MJEP/comments/',
+  await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/K0EaQXGcHFVimQravHDE/comments/',
     {
       method: 'POST',
       headers: {
@@ -38,14 +38,26 @@ export const postComment = async (identifier, name, message) => {
         comment: message,
       }),
     });
+  const commentsContainer = document.querySelector('.comments-container');
+  commentsContainer.innerHTML = '';
+  const response = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/K0EaQXGcHFVimQravHDE/comments?item_id=${identifier}`);
+  const info = await response.json();
+  for (let i = 0; i < info.length; i += 1) {
+    commentsContainer.innerHTML += `<p class="m-0 p-1">${info[i].creation_date}-${info[i].username}: ${info[i].comment}</p>`;
+  }
+  document.querySelector('.commentsheader').innerText = `Comments(${countComments(info)})`;
 };
 
 export const getComment = async (container, childCount, identifier) => {
   container.innerHTML = '';
-  const response = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/StwCMkXg71NHo1x5MJEP/comments?item_id=${identifier}`);
-  const data = await response.json();
-  for (let i = 0; i < data.length; i += 1) {
-    container.innerHTML += `<p class="m-0 p-1">${data[i].creation_date}-${data[i].username}: ${data[i].comment}</p>`;
+  const response = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/K0EaQXGcHFVimQravHDE/comments?item_id=${identifier}`);
+  if (response.ok) {
+    const data = await response.json();
+    for (let i = 0; i < data.length; i += 1) {
+      container.innerHTML += `<p class="m-0 p-1">${data[i].creation_date}-${data[i].username}: ${data[i].comment}</p>`;
+    }
+    childCount.innerText = `Comments(${countComments(data)})`;
+  } else {
+    childCount.innerText = 'Comments(0)';
   }
-  childCount.innerText = `Comments(${countComments(data)})`;
 };
